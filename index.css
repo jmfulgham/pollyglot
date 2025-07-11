@@ -1,0 +1,16 @@
+#root {
+    background-color: azure;
+}
+
+.parent-container {
+    background-color: white;
+    width: 400px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    height: 780px;
+    margin: auto;
+}
+
+#banner {
+    border-radius: 8px 10px 0 0;
+}
