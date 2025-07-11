@@ -1,5 +1,6 @@
 #root {
     background-color: azure;
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 .parent-container {
@@ -13,4 +14,16 @@
 
 #banner {
     border-radius: 8px 10px 0 0;
+}
+
+#chat-box {
+    margin: 20px 10px 20px 10px;
+    border-radius: 10px;
+    width: 375px;
+    height: 500px;
+    border: 2px solid black;
+}
+
+h2 {
+    padding: 10px;
 }
