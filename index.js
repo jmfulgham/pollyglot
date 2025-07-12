@@ -1,11 +1,15 @@
-let translation;
+let translationSelection;
 const languageSelect = document.getElementById("language-form");
-const translationValue = document.getElementById("chat-box")
-let value;
+const translationInput = document.getElementById("chat-box");
+let translationText;
+let translationResponse;
+
 const insertTranslationBox = () => {
-    const translationBoxStyles  = `height: 118px; width: 317px; background-color: #EFF0F4; border-radius: 10px; margin-left:20px;
-    padding:10px;`
-    const translationBox = document.createElement("div")
+    const translationBoxStyles = `height: 118px; width: 317px; background-color: #EFF0F4; border-radius: 10px; margin-left:20px;
+    padding:10px; font-size: 16px;`
+    const translationBox = document.createElement("input")
+    translationBox.setAttribute("id", "ai-translation")
+    translationBox.setAttribute("type", "text")
     translationBox.style = translationBoxStyles;
     document.getElementById("language-form").style.display = 'none';
 
@@ -15,8 +19,7 @@ const insertTranslationBox = () => {
     chatTitle2.innerHTML = "<h3>Your Translation 👇</h3>";
 
     const restartBtn = document.createElement("button");
-    const restartBtnStyles = `background-color: #7C3AED; color: white; width: 322px; height: 50px; border-radius: 10px; border:none; margin-top: 30px; margin-left: 30px; font-size: 16px;`
-    restartBtn.style= restartBtnStyles;
+    restartBtn.style = `background-color: #7C3AED; color: white; width: 322px; height: 50px; border-radius: 10px; border:none; margin-top: 30px; margin-left: 30px; font-size: 16px;`;
     restartBtn.innerHTML = "Start Over";
 
     const chatForm = document.getElementById("chat-form");
@@ -25,8 +28,8 @@ const insertTranslationBox = () => {
 
 }
 
-translationValue.addEventListener("change", (e) =>{
-     value = e.target.value;
+translationInput.addEventListener("change", (e) => {
+    translationText = e.target.value;
 })
 
 languageSelect.addEventListener('submit', (event) => {
@@ -35,20 +38,62 @@ languageSelect.addEventListener('submit', (event) => {
 
     for (let i = 0; i < radioButtons.length; i++) {
         if (radioButtons[i].checked) {
-            translation = radioButtons[i].id
+            translationSelection = radioButtons[i].id
         }
     }
 
+    //replace initial layout with answer from Open AI
     insertTranslationBox()
-    getTranslation()
-    appendTranslationToDOM()
+    //Grab translation from Open AI
+    getTranslation().then(res => {
+        setTimeout(() => {translationResponse = res.choices[0].message.content})}, 1000)
+    //Send translation to the DOM for the user
+    console.log({translationResponse});
+   appendTranslationToDOM();
 });
 
+// TODO add event listener to restart button
 
-const getTranslation = () => {
+const getTranslation = async () => {
 
+    const data = {type: "text", text: `Translate in the language ${translationSelection}: ${translationText}`}
+
+    const url = "https://api.openai.com/v1/chat/completions";
+    const body = JSON.stringify({
+        model: "gpt-4.1-nano-2025-04-14",
+        messages: [{
+            role: "system",
+            content: "Translate the data you receive from the user, in the language the user provides."
+        },
+            {
+                role: "user",
+                content: [data]
+            }]
+    })
+    const xhr = new XMLHttpRequest();
+    return new Promise((resolve, reject) => {
+        xhr.onreadystatechange = (e) => {
+            if (xhr.status === 200) {
+                // console.log('SUCCESS', xhr.responseText);
+                resolve(JSON.parse(xhr.responseText));
+            } else {
+                console.warn('request_error');
+                reject("Error reaching out to Open AI")
+            }
+        };
+        xhr.open("POST", url);
+
+        xhr.setRequestHeader("Authorization", `Bearer ${OPENAI_API_KEY}`)
+        xhr.setRequestHeader("OpenAI-Project", "")
+        xhr.setRequestHeader("Content-Type", "application/json")
+        xhr.send(body);
+    })
 }
 
 const appendTranslationToDOM = () => {
 
+    console.log("append called with ", translationResponse)
+    const translationBox = document.getElementById("ai-translation")
+    translationBox.value = `${translationResponse}`;
+    translationBox.innerHTML= "<p>${translationResponse}</p>"
 }
