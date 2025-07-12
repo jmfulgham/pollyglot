@@ -1,5 +1,6 @@
 #root {
     background-color: azure;
+    font-family: "Helvetica Neue", sans-serif;
 }
 
 .parent-container {
@@ -13,4 +14,58 @@
 
 #banner {
     border-radius: 8px 10px 0 0;
+}
+
+h3 {
+    color: #7C3AED
+}
+
+#chat-container {
+    margin: 20px 10px 20px 10px;
+    border-radius: 10px;
+    width: 375px;
+    height: 500px;
+    border: 2px solid black;
+}
+
+.chat-title {
+    /*todo clean up*/
+    margin-left:25%;
+}
+
+label[for="chat-box"] {
+    visibility: hidden;
+}
+input[type="text"], #chat-response {
+    background-color: #EFF0F4;
+    width: 317px;
+    height: 118px;
+    margin-left: 18px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+}
+
+#chat-form {
+    margin-top:30px;
+    margin-bottom: 20px;
+}
+
+form  {
+    margin: 20px 30px;
+}
+
+input[type="radio"]{
+    margin: 8px;
+}
+
+button {
+   background-color: #7C3AED;
+    width: 322px;
+    height:50px;
+    border-radius: 10px;
+    border: none;
+    margin-left: 25px;
+
 }
