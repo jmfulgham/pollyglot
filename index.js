@@ -1,0 +1,97 @@
+let translationSelection;
+let translationText;
+const languageSelect = document.getElementById("language-form");
+const translationInput = document.getElementById("chat-box");
+const restartBtn = document.createElement("button");
+const insertTranslationBox = () => {
+    const translationBoxStyles = `height: 118px; width: 317px; background-color: #EFF0F4; border-radius: 10px; margin-left:20px;
+    padding:10px; font-size: 16px;`
+    const translationBox = document.createElement("div")
+    translationBox.setAttribute("id", "ai-translation")
+    translationBox.setAttribute("type", "text")
+    translationBox.style = translationBoxStyles;
+    document.getElementById("language-form").style.display = 'none';
+
+    const titles = document.getElementsByClassName("chat-title");
+    const [chatTitle1, chatTitle2] = titles
+    chatTitle1.innerHTML = "<h3> Original Text 👇</h3>";
+    chatTitle2.innerHTML = "<h3>Your Translation 👇</h3>";
+
+    restartBtn.setAttribute("id", "restart-btn")
+    restartBtn.style = `background-color: #7C3AED; color: white; width: 322px; height: 50px; border-radius: 10px; border:none; margin-top: 30px; margin-left: 30px; font-size: 16px;`;
+    restartBtn.innerHTML = "Start Over";
+
+    const chatForm = document.getElementById("chat-form");
+    chatForm.appendChild(translationBox);
+    chatForm.appendChild(restartBtn)
+}
+
+const getTranslation = async () => {
+
+    const data = {type: "text", text: `Translate in the language ${translationSelection}: ${translationText}`}
+
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY
+    const url = "https://api.openai.com/v1/chat/completions";
+    const body = JSON.stringify({
+        model: "gpt-4.1-nano-2025-04-14",
+        messages: [{
+            role: "system",
+            content: "Translate the data you receive from the user, in the language the user provides."
+        },
+            {
+                role: "user",
+                content: [data]
+            }]
+    })
+    try {
+        const xhr = new XMLHttpRequest();
+        return new Promise((resolve) => {
+            xhr.onreadystatechange = (e) => {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.open("POST", url);
+            xhr.setRequestHeader("Authorization", `Bearer ${OPENAI_API_KEY}`)
+            xhr.setRequestHeader("OpenAI-Project", "proj_DhWceN1wBMdybP7QqCOD7U5y")
+            xhr.setRequestHeader("Content-Type", "application/json")
+            xhr.setRequestHeader("dangerouslyAllowBrowser", "true")
+            xhr.send(body);
+        })
+    } catch(e){
+        console.error("Error connecting with Open AI ", e)
+    }
+}
+
+
+const appendTranslationToDOM = (response) => {
+    const translationBox = document.getElementById("ai-translation")
+    const responseParagraph = document.createElement("p")
+    translationBox.appendChild(responseParagraph);
+    responseParagraph.textContent= response
+}
+translationInput.addEventListener("change", (e) => {
+    translationText = e.target.value;
+})
+
+languageSelect.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const radioButtons = document.getElementsByName("fav_language")
+
+    for (let i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked) {
+            translationSelection = radioButtons[i].id
+        }
+    }
+
+    //replace initial layout with answer from Open AI
+    insertTranslationBox();
+    getTranslation().then(res => appendTranslationToDOM(res.choices[0].message.content))
+
+});
+
+restartBtn.addEventListener("click", ()=>{
+    document.getElementById("chat-box").value = "";
+    document.getElementById("language-form").reset();
+    window.location.reload();
+})

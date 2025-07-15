@@ -16,8 +16,13 @@
     border-radius: 8px 10px 0 0;
 }
 
+#chat-box {
+    text-wrap: unset;
+}
+
 h3 {
-    color: #7C3AED
+    color: #7C3AED;
+    margin-bottom: 10px;
 }
 
 #chat-container {
@@ -33,10 +38,8 @@ h3 {
     margin-left:25%;
 }
 
-label[for="chat-box"] {
-    visibility: hidden;
-}
-input[type="text"], #chat-response {
+textarea, #chat-response {
+    font-family: "Helvetica Neue", sans-serif;
     background-color: #EFF0F4;
     width: 317px;
     height: 118px;
@@ -45,6 +48,7 @@ input[type="text"], #chat-response {
     border: none;
     font-size: 20px;
     padding: 10px;
+    resize: none;
 }
 
 #chat-form {
@@ -60,12 +64,13 @@ input[type="radio"]{
     margin: 8px;
 }
 
-button {
+input[type="submit"] {
    background-color: #7C3AED;
+    color: white;
     width: 322px;
     height:50px;
     border-radius: 10px;
     border: none;
-    margin-left: 25px;
-
+    margin-top: 15px;
+    font-size: 16px;
 }

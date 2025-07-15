@@ -16,24 +16,23 @@
         <div class="chat-title">
         <h3>Text To Translate 👇</h3>
         </div>
-        <label for="chat-box">Chat box</label>
-        <input type="text" id="chat-box"/>
+        <textarea type="text" id="chat-box"></textarea>
         <div id="chat-form">
             <div class="chat-title">
             <h3>Select Language 👇</h3>
             </div>
-            <form>
+            <form method="post" id="language-form">
                 <input type="radio" id="French" name="fav_language" value="French">
                 <label for="French">French 🇫🇷 </label><br>
                 <input type="radio" id="Spanish" name="fav_language" value="Spanish">
                 <label for="Spanish">Spanish 🇪🇸</label><br>
                 <input type="radio" id="Japanese" name="fav_language" value="Japanese">
                 <label for="Japanese">Japanese 🇯🇵</label>
+                <input type="submit" value="Translate"/>
+
             </form>
-            <button type="submit"> Translate</button>
         </div>
     </div>
-
 </div>
 <script src="index.js" type="module"></script>
 </body>
