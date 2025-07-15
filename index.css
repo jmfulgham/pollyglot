@@ -16,6 +16,10 @@
     border-radius: 8px 10px 0 0;
 }
 
+#chat-box {
+    text-wrap: unset;
+}
+
 h3 {
     color: #7C3AED;
     margin-bottom: 10px;
@@ -34,7 +38,8 @@ h3 {
     margin-left:25%;
 }
 
-input[type="text"], #chat-response {
+textarea, #chat-response {
+    font-family: "Helvetica Neue", sans-serif;
     background-color: #EFF0F4;
     width: 317px;
     height: 118px;
@@ -43,6 +48,7 @@ input[type="text"], #chat-response {
     border: none;
     font-size: 20px;
     padding: 10px;
+    resize: none;
 }
 
 #chat-form {
