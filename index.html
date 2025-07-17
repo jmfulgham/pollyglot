@@ -13,15 +13,17 @@
         <img id="banner" height="219" src="assets/Frame%207.png" alt="Pollyglot Banner"/>
     </div>
     <div id="chat-container">
-        <div class="chat-title">
-        <h3>Text To Translate 👇</h3>
+        <div id="chat-input">
+            <div class="chat-title">
+                <h3>Text To Translate 👇</h3>
+            </div>
+            <textarea title="Text you want translated" id="chat-box"></textarea>
         </div>
-        <textarea type="text" id="chat-box"></textarea>
         <div id="chat-form">
             <div class="chat-title">
-            <h3>Select Language 👇</h3>
+                <h3>Select Language 👇</h3>
             </div>
-            <form method="post" id="language-form">
+            <form method="post" id="language-form" title="Language Selection">
                 <input type="radio" id="French" name="fav_language" value="French">
                 <label for="French">French 🇫🇷 </label><br>
                 <input type="radio" id="Spanish" name="fav_language" value="Spanish">
