@@ -1,6 +1,7 @@
 #root {
     background-color: azure;
     font-family: "Helvetica Neue", sans-serif;
+    padding-top:30px;
 }
 
 .parent-container {
@@ -8,7 +9,7 @@
     width: 400px;
     border: 1px solid gray;
     border-radius: 10px;
-    height: 780px;
+    height: 750px;
     margin: auto;
 }
 
@@ -27,10 +28,8 @@ h3 {
 
 #chat-container {
     margin: 20px 10px 20px 10px;
-    border-radius: 10px;
     width: 375px;
     height: 500px;
-    border: 2px solid black;
 }
 
 .chat-title {
@@ -73,4 +72,8 @@ input[type="submit"] {
     border: none;
     margin-top: 15px;
     font-size: 16px;
+}
+
+input[type="submit"]:disabled {
+    background-color: #9a67ff;
 }
