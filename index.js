@@ -30,7 +30,7 @@ const getTranslation = async () => {
 
     const data = {type: "text", text: `Translate in the language ${translationSelection}: ${translationText}`}
 
-    const OPENAI_API_KEY = "replace_me"
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     const url = "https://api.openai.com/v1/chat/completions";
     const body = JSON.stringify({
         model: "gpt-4.1-nano-2025-04-14",
