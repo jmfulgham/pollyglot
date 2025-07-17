@@ -4,6 +4,7 @@ const languageSelect = document.getElementById("language-form");
 const translationInput = document.getElementById("chat-box");
 const restartBtn = document.createElement("button");
 const translateBtn = document.querySelector('input[type="submit"]')
+const errorMsg = document.createElement("p");
 
 const removeDisabledStyle = () => {
     if(translateBtn.attributes.getNamedItem("disabled")) {
@@ -37,13 +38,14 @@ const insertTranslationBox = () => {
 const inputCheck = () => {
 
     if (translationSelection !== undefined && translationText !== undefined) {
-        //replace initial layout with answer from Open AI
+
+        //clear any errors from previous submissions
         const error = document.getElementsByName("error");
-        error[0].style = `display: none;`
+        if (error.length > 0 ) {error[0].style = `display: none;`}
+
         insertTranslationBox();
         getTranslation().then(res => appendTranslationToDOM(res.choices[0].message.content));
     } else {
-        const errorMsg = document.createElement("p");
         errorMsg.innerHTML = "Please fill out the form, then resubmit";
         errorMsg.style=`color: red; margin: 12px 0 0 20px;`
         errorMsg.setAttribute("name", "error")
@@ -72,10 +74,20 @@ const getTranslation = async () => {
     })
     try {
         const xhr = new XMLHttpRequest();
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             xhr.onreadystatechange = (e) => {
                 if (xhr.status === 200) {
                     resolve(JSON.parse(xhr.responseText));
+                }
+
+                //sweeping error handling
+                if(xhr.status !== 200) {
+                    const resp = JSON.parse(xhr.responseText)
+                    reject(resp);
+                    errorMsg.innerHTML = `There was an error with your request: ${resp.error.message}`;
+                    errorMsg.style=`color: red; margin: 12px 0 0 20px;`
+                    errorMsg.setAttribute("name", "error")
+                    document.getElementById("ai-translation").appendChild(errorMsg);
                 }
             };
             xhr.open("POST", url);
