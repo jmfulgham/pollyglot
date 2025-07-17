@@ -1,6 +1,6 @@
 ### Pollyglot
 An OpenAI powered chatbot that translate user input in 3 languages.
-Built in HTML, CSS, and vanilla JS. An assignment from the [Scrimba AI Engineering course](https://scrimba.com/the-ai-engineer-path-c02v).
+Originally built in HTML, CSS, and vanilla JS. Updated to a small Node server to handle environment variables. This was an assignment from the [Scrimba AI Engineering course](https://scrimba.com/the-ai-engineer-path-c02v).
 ![img.png](assets/img.png)
 ![img_1.png](assets/img_1.png)
 

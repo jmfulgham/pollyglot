@@ -27,17 +27,17 @@ const insertTranslationBox = () => {
 }
 
 const getTranslation = async () => {
-
+    //  TODO handle when data is undefined
     const data = {type: "text", text: `Translate in the language ${translationSelection}: ${translationText}`}
 
-    const OPENAI_API_KEY = "replace_me"
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     const url = "https://api.openai.com/v1/chat/completions";
     const body = JSON.stringify({
         model: "gpt-4.1-nano-2025-04-14",
         temperature: 1.1,
         messages: [{
             role: "system",
-            content: "Translate the data you receive from the user, in the language the user provides, in a colloquial way."
+            content: "Translate the data you receive from the user, in the language the user provides, in a friendly conversational way."
         },
             {
                 role: "user",
