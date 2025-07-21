@@ -9,6 +9,6 @@ Find the [Figma](https://www.figma.com/design/5zQQiaSDdUu8AqVGlg9PZ3/OpenAi-API-
 for this project here.
 
 ### To Run
-You will need an API Key from OpenAI in order to receive any translations. 
-Search the repository for `const OPENAI_API_KEY` in `index.js`, and place your key there. The app is built in pure HTML,
+You will need a project ID and API Key from OpenAI in order to receive any translations. 
+Search the repository for `const OPENAI_API_KEY` in `index.js`, as well as the `OpenAI-Project` id in the xhr request, and place your details there. The app is built in pure HTML,
 CSS, and JS, so your IDE should be able to open your html page in your chosen browser.
