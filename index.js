@@ -92,7 +92,7 @@ const getTranslation = async () => {
             };
             xhr.open("POST", url);
             xhr.setRequestHeader("Authorization", `Bearer ${OPENAI_API_KEY}`);
-            xhr.setRequestHeader("OpenAI-Project", "proj_DhWceN1wBMdybP7QqCOD7U5y");
+            xhr.setRequestHeader("OpenAI-Project", "replace_me");
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.setRequestHeader("dangerouslyAllowBrowser", "true");
             xhr.send(body);
