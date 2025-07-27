@@ -44,7 +44,7 @@ const inputCheck = () => {
         if (error.length > 0 ) {error[0].style = `display: none;`}
 
         insertTranslationBox();
-        getTranslation().then(res => appendTranslationToDOM(res.choices[0].message.content));
+        getTranslation().then(res => appendTranslationToDOM(res.content));
     } else {
         errorMsg.innerHTML = "Please fill out the form, then resubmit";
         errorMsg.style=`color: red; margin: 12px 0 0 20px;`
@@ -55,23 +55,20 @@ const inputCheck = () => {
 }
 
 const getTranslation = async () => {
-
     const data = {type: "text", text: `Translate in the language ${translationSelection}: ${translationText}`}
-
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-    const url = "https://api.openai.com/v1/chat/completions";
-    const body = JSON.stringify({
-        model: "gpt-4.1-nano-2025-04-14",
-        temperature: 1.1,
-        messages: [{
+    const messages = [
+        {
             role: "system",
-            content: "Translate the data you receive from the user, in the language the user provides, in a colloquial way."
+            content: "You are a local that speaks the language provided by the user. Translate the text you receive from the user like a local would.",
         },
-            {
-                role: "user",
-                content: [data]
-            }]
-    })
+        {
+            role: "user",
+            type: "text",
+            content: [data]
+        }]
+
+    const url = "https://mo-openai-api-worker.oa-api-worker.workers.dev/";
+
     try {
         const xhr = new XMLHttpRequest();
         return new Promise((resolve, reject) => {
@@ -91,11 +88,8 @@ const getTranslation = async () => {
                 }
             };
             xhr.open("POST", url);
-            xhr.setRequestHeader("Authorization", `Bearer ${OPENAI_API_KEY}`);
-            xhr.setRequestHeader("OpenAI-Project", "replace_me");
             xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("dangerouslyAllowBrowser", "true");
-            xhr.send(body);
+            xhr.send(JSON.stringify(messages));
         })
     } catch (e) {
         console.error("Error connecting with Open AI ", e);
