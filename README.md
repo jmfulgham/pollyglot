@@ -1,6 +1,6 @@
 ### Pollyglot
 An OpenAI powered chatbot that translate user input in 3 languages.
-Built in HTML, CSS, and vanilla JS. An assignment from the [Scrimba AI Engineering course](https://scrimba.com/the-ai-engineer-path-c02v).
+Built in HTML, CSS, and vanilla JS, leveraging a Cloudflare worker to handle OpenAI requests. An assignment from the [Scrimba AI Engineering course](https://scrimba.com/the-ai-engineer-path-c02v).
 ![img.png](assets/img.png)
 ![img_1.png](assets/img_1.png)
 
@@ -9,6 +9,6 @@ Find the [Figma](https://www.figma.com/design/5zQQiaSDdUu8AqVGlg9PZ3/OpenAi-API-
 for this project here.
 
 ### To Run
-You will need a project ID and API Key from OpenAI in order to receive any translations. 
-Search the repository for `const OPENAI_API_KEY` in `index.js`, as well as the `OpenAI-Project` id in the xhr request, and place your details there. The app is built in pure HTML,
-CSS, and JS, so your IDE should be able to open your html page in your chosen browser.
+Just pull the code! The app is built in pure HTML, CSS, and JS, so your IDE should be able to open your html page in your chosen browser.
+The [Cloudflare worker](https://mo-openai-api-worker.oa-api-worker.workers.dev/) will handle all calls to OpenAI, so it makes
+it simple to play around with the code! Have fun :)
