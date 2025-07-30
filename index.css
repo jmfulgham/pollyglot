@@ -77,3 +77,7 @@ input[type="submit"] {
 input[type="submit"]:disabled {
     background-color: #9a67ff;
 }
+
+#dev-details {
+    margin-left: 33%;
+}

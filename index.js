@@ -81,7 +81,7 @@ const getTranslation = async () => {
                 if(xhr.status !== 200) {
                     const resp = JSON.parse(xhr.responseText)
                     reject(resp);
-                    errorMsg.innerHTML = `There was an error with your request: ${resp.error.message}`;
+                    errorMsg.innerHTML = `There was an error with your request: ${resp.error}`;
                     errorMsg.style=`color: red; margin: 12px 0 0 20px;`
                     errorMsg.setAttribute("name", "error")
                     document.getElementById("ai-translation").appendChild(errorMsg);
