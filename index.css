@@ -80,4 +80,9 @@ input[type="submit"]:disabled {
 
 #dev-details {
     margin-left: 33%;
+
+}
+
+a {
+    text-decoration: none;
 }
